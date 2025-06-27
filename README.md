@@ -7,24 +7,24 @@ The bat send your foe either long or while crouching up high.
 Be mindfully when using it near glass or other easily breakable blocks.
 
 ## Features
-- Infinity durable golden bat rare found in Labyrinths
-- Normally Golden bat has high knockback, sending your enemies on far voyage
-- While Crouch to send your enemies up high
-- Breaks glass, flowers, cacti, sugarcane and pumpkins very easily
-- Flower leave dye behind
-- Pumpkin leaves seeds behind
-- The rest just get deleted
+- Infinity durable golden bat rare found in Labyrinths.
+- Normally Golden bat has high knockback, sending your enemies on far voyage.
+- While Crouch to send your enemies up high.
+- Breaks glass, flowers, cacti, sugarcane and pumpkins very easily.
+- Flower leave dye behind.
+- Pumpkin leaves seeds behind.
+- The rest just get deleted.
 
+## Demo
+[Small showcase](https://youtu.be/5OmfFL_nmpA)
 
 ## Languages
-
+- English - en_US
 
 ## Installation
-- English - en_US
 
 ### Requires:
 - BTA
 - Babric (https://github.com/Turnip-Labs/babric-instance-repo/releases)
 - HalpLibe (https://github.com/Turnip-Labs/bta-halplibe)
-### Recommends:
-- BetterWithBackpacks (https://github.com/UselessSolutions/bta-backpacks/releases)
+
