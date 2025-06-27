@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "goldenbat",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This mod aims to help new BTA modders.",
+  "name": "Golden Bat",
+  "description": "Adds a knockback monster of a weapon as rare item found in dungeons.",
   "authors": [
-    "Turnip Labs"
+    "Redart15"
   ],
   "contact": {
     "homepage": "",
@@ -19,20 +19,23 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-			"turniplabs.examplemod.ExampleMod"
+			"redart15.goldenbat.GoldenBat"
     ],
 		"beforeGameStart": [
-			"turniplabs.examplemod.ExampleMod"
+			"redart15.goldenbat.GoldenBat"
 		],
 		"afterGameStart": [
-			"turniplabs.examplemod.ExampleMod"
+			"redart15.goldenbat.GoldenBat"
 		],
 		"recipesReady": [
-			"turniplabs.examplemod.ExampleMod"
+			"redart15.goldenbat.GoldenBat"
+		],
+		"initModels": [
+			"redart15.goldenbat.GoldenBatModels"
 		]
 	},
   "mixins": [
-      "examplemod.mixins.json"
+      "goldenbat.mixins.json"
   ],
 
   "depends": {

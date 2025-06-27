@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "redart15.goldenbat.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BlockLogicMixin",
+    "KnockBackMixin",
+    "LabyrinthLootMixin",
+    "NoDamageMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
