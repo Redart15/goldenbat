@@ -2,48 +2,63 @@ package redart15.goldenbat.items.tools;
 
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.Items;
-import redart15.goldenbat.helper.BlockSmashResult;
+import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.DyeColor;
+import org.apache.commons.lang3.tuple.Pair;
 
-import static redart15.goldenbat.helper.BlockSmashResult.BlockSmashResultBuilder;
+import java.util.HashMap;
+import java.util.Map;
 
 // Helper Class for ItemGoldenBat
 // require to be loaded after Items creation.
 
-public class Smashables {
-	private static BlockSmashResult[] SMASHABLES;
+public final class Smashables {
+	public static final Smashables instance = new Smashables();
+	private final Map<Integer, Pair<NamespaceID, Integer>> smashables = new HashMap<>();
 
-	public static void initializeSmashables(){
-		SMASHABLES = new BlockSmashResult[]{
-			new BlockSmashResultBuilder().setBlockID(Blocks.GLASS.id()).build(),
-			new BlockSmashResultBuilder().setBlockID(Blocks.TRAPDOOR_GLASS.id()).build(),
-			new BlockSmashResultBuilder().setBlockID(Blocks.DOOR_GLASS_BOTTOM.id()).build(),
-			new BlockSmashResultBuilder().setBlockID(Blocks.DOOR_GLASS_TOP.id()).build(),
-			new BlockSmashResultBuilder().setBlockID(Blocks.PUMPKIN_PIE.id()).build(),
-			new BlockSmashResultBuilder().setBlockID((Blocks.CACTUS.id())).build(),
-			new BlockSmashResultBuilder().setBlockID(Blocks.SUGARCANE.id()).build(),
-			new BlockSmashResultBuilder().setBlockID(Blocks.PUMPKIN.id()).setnamespaceID(Items.SEEDS_PUMPKIN.namespaceID).setAmount(1).build(),
-			new BlockSmashResultBuilder().setBlockID(Blocks.PUMPKIN_PIE.id()).setnamespaceID(Items.SEEDS_PUMPKIN.namespaceID).setAmount(1).build(),
-			new BlockSmashResultBuilder().setBlockID(Blocks.PUMPKIN_CARVED_IDLE.id()).setnamespaceID(Items.SEEDS_PUMPKIN.namespaceID).setAmount(1).build(),
-			new BlockSmashResultBuilder().setMetadata(12).setBlockID(Blocks.FLOWER_LIGHT_BLUE.id()).setnamespaceID(Items.DYE.namespaceID).setAmount(1).build(),
-			new BlockSmashResultBuilder().setMetadata(14).setBlockID(Blocks.FLOWER_ORANGE.id()).setnamespaceID(Items.DYE.namespaceID).setAmount(1).build(),
-			new BlockSmashResultBuilder().setMetadata(9).setBlockID(Blocks.FLOWER_PINK.id()).setnamespaceID(Items.DYE.namespaceID).setAmount(1).build(),
-			new BlockSmashResultBuilder().setMetadata(5).setBlockID(Blocks.FLOWER_PURPLE.id()).setnamespaceID(Items.DYE.namespaceID).setAmount(1).build(),
-			new BlockSmashResultBuilder().setMetadata(1).setBlockID(Blocks.FLOWER_RED.id()).setnamespaceID(Items.DYE.namespaceID).setAmount(1).build(),
-			new BlockSmashResultBuilder().setMetadata(11).setBlockID(Blocks.FLOWER_YELLOW.id()).setnamespaceID(Items.DYE.namespaceID).setAmount(1).build(),
-		};
+
+	private Smashables() {
+		this.register();
 	}
 
-	public static boolean isSmashable(int id) {
-		for (BlockSmashResult Smashable : SMASHABLES) {
-			int smashable = Smashable.getBlockID();
-			if (smashable == id){
-				return true;
-			}
-		}
-		return false;
+	private void register() {
+		this.addEntry(Blocks.GLASS.id());
+		this.addEntry(Blocks.GLASS.id());
+		this.addEntry(Blocks.TRAPDOOR_GLASS.id());
+		this.addEntry(Blocks.DOOR_GLASS_BOTTOM.id());
+		this.addEntry(Blocks.DOOR_GLASS_TOP.id());
+		this.addEntry(Blocks.PUMPKIN_PIE.id());
+		this.addEntry(Blocks.CACTUS.id());
+		this.addEntry(Blocks.SUGARCANE.id());
+		this.addEntry(Blocks.SUGARCANE.id());
+		this.addEntry(Blocks.PUMPKIN.id(),Items.SEEDS_PUMPKIN.namespaceID);
+		this.addEntry(Blocks.PUMPKIN_PIE.id(),Items.SEEDS_PUMPKIN.namespaceID);
+		this.addEntry(Blocks.PUMPKIN_CARVED_IDLE.id(),Items.SEEDS_PUMPKIN.namespaceID);
+		this.addEntry(Blocks.FLOWER_LIGHT_BLUE.id(),Items.DYE.namespaceID, DyeColor.LIGHT_BLUE.itemMeta);
+		this.addEntry(Blocks.FLOWER_ORANGE.id(),Items.DYE.namespaceID, DyeColor.ORANGE.itemMeta);
+		this.addEntry(Blocks.FLOWER_PINK.id(),Items.DYE.namespaceID, DyeColor.PINK.itemMeta);
+		this.addEntry(Blocks.FLOWER_PURPLE.id(),Items.DYE.namespaceID, DyeColor.PURPLE.itemMeta);
+		this.addEntry(Blocks.FLOWER_RED.id(),Items.DYE.namespaceID, DyeColor.RED.itemMeta);
+		this.addEntry(Blocks.FLOWER_YELLOW.id(),Items.DYE.namespaceID, DyeColor.YELLOW.itemMeta);
 	}
 
-	public static BlockSmashResult[] getSMASHABLES() {
-		return SMASHABLES;
+	public void addEntry(int blockID) {
+		this.smashables.put(blockID, Pair.of(null, 0));
+	}
+
+	public void addEntry(int blockID, NamespaceID itemID) {
+		this.smashables.put(blockID, Pair.of(itemID, 0));
+	}
+
+	public void addEntry(int blockID, NamespaceID itemID, int metadata) {
+		this.smashables.put(blockID, Pair.of(itemID, metadata));
+	}
+
+	public Pair<NamespaceID, Integer> getEntry(int blockID){
+		return this.smashables.get(blockID);
+	}
+
+	public boolean isSmashable(int blockID){
+		return this.smashables.containsKey(blockID);
 	}
 }
