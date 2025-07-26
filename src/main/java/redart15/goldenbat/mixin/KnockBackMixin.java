@@ -7,6 +7,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,9 +16,8 @@ import redart15.goldenbat.items.tools.ItemBat;
 import redart15.goldenbat.items.tools.ItemGoldenBat;
 
 @Mixin(value = Mob.class, remap = false)
-public abstract class KnockBackMixin extends Entity {
-
-	public KnockBackMixin(final World world) {
+abstract public  class KnockBackMixin extends Entity  {
+	public KnockBackMixin(@Nullable World world) {
 		super(world);
 	}
 
@@ -49,7 +49,6 @@ public abstract class KnockBackMixin extends Entity {
 			this.xd /= 2.0F; // velocity x
 			this.yd /= 2.0F; // velocity y
 			this.zd /= 2.0F; // velocity z
-
 			this.xd = this.xd - (diff_x / (double) horizonalDistance * (double) knockBackStrength);
 			this.yd = this.yd + lift;
 			this.zd = this.zd - (diff_z / (double) horizonalDistance * (double) knockBackStrength);
