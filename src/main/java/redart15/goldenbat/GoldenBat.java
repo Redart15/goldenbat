@@ -19,36 +19,19 @@ public class GoldenBat implements ModInitializer, RecipeEntrypoint, GameStartEnt
 
 	static {
 		final Properties properties = new Properties();
-		properties.setProperty("starting_item_id","23000");
+		properties.setProperty("starting_item_id","23232");
 		final ConfigHandler config = new ConfigHandler(MOD_ID,properties);
 		itemID = config.getInt("starting_item_id");
 		config.updateConfig();
 	}
 
-
-
     @Override
     public void onInitialize() {
-        LOGGER.info("ExampleMod initialized.");
+        LOGGER.info("GoldenBat initialized, now ready to smack!");
 		GoldenBatItems.initializeItems();
     }
-
-	@Override
-	public void beforeGameStart() {
-	}
-
-	@Override
-	public void afterGameStart() {
-		Smashables.initializeSmashables(); // important to load after Item have been loaded
-	}
-
-	@Override
-	public void onRecipesReady() {
-
-	}
-
-	@Override
-	public void initNamespaces() {
-
-	}
+	@Override public void beforeGameStart() {}
+	@Override public void afterGameStart() {}
+	@Override public void onRecipesReady() {}
+	@Override public void initNamespaces() {}
 }

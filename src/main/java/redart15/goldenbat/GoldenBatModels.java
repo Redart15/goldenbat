@@ -13,26 +13,11 @@ import static redart15.goldenbat.items.GoldenBatItems.GOLDEN_BAT;
 
 public class GoldenBatModels implements ModelEntrypoint {
 	@Override
-	public void initBlockModels(BlockModelDispatcher blockModelDispatcher) {
-	}
-
-	@Override
 	public void initItemModels(ItemModelDispatcher itemModelDispatcher) {
-		itemModelDispatcher.addDispatch(new ItemModelStandard(GOLDEN_BAT, null).setIcon(MOD_ID + ":item/tool/tool_golden_bat"));
+		itemModelDispatcher.addDispatch(new ItemModelStandard(GOLDEN_BAT, null).setIcon(MOD_ID + ":item/tool/tool_golden_bat").setFull3D());
 	}
-
-	@Override
-	public void initEntityModels(EntityRenderDispatcher entityRenderDispatcher) {
-
-	}
-
-	@Override
-	public void initTileEntityModels(TileEntityRenderDispatcher tileEntityRenderDispatcher) {
-
-	}
-
-	@Override
-	public void initBlockColors(BlockColorDispatcher blockColorDispatcher) {
-
-	}
+	@Override public void initBlockModels(BlockModelDispatcher blockModelDispatcher) {}
+	@Override public void initEntityModels(EntityRenderDispatcher entityRenderDispatcher) {}
+	@Override public void initTileEntityModels(TileEntityRenderDispatcher tileEntityRenderDispatcher) {}
+	@Override public void initBlockColors(BlockColorDispatcher blockColorDispatcher) {}
 }
