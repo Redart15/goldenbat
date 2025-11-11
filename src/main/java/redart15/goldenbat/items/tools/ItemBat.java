@@ -1,8 +1,6 @@
 package redart15.goldenbat.items.tools;
 
-import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntityActivator;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -15,24 +13,25 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.Direction;
-import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.helper.Time;
 import net.minecraft.core.world.World;
 import org.apache.commons.lang3.tuple.Pair;
-import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
 
 public class ItemBat extends ItemToolSword {
-	public float highStrength = 0.8f;
-	public float longStrength = 2.6f;
+	/// 2 * lift + knockbackStrength <= maxValue </br>
+	public final double highStrength;
+	public final double highLift;
+	public final double longStrength;
+	public final double longlift;
 
-	public float highLift = 1.9f;
-	public float longlift = 1.0f;
-
-
-	public ItemBat(String name, String namespaceId, int id, ToolMaterial material) {
+	public ItemBat(String name, String namespaceId, int id, ToolMaterial material, double maxValue) {
 		super(name, namespaceId, id, material);
+		maxValue = Math.abs(maxValue);
+		this.highStrength = 1.0 / 5.0f * maxValue;
+		this.highLift = 2.0 / 5.0f * maxValue;
+		this.longStrength = 3.0 / 5.0f * maxValue;
+		this.longlift = 1.0 / 5.0f * maxValue;
 	}
 
 	@Override
@@ -46,37 +45,6 @@ public class ItemBat extends ItemToolSword {
 	@Override
 	public int getDamageVsEntity(Entity entity, ItemStack is) {
 		return 0;
-	}
-
-
-	@Override
-	public ItemStack onUseItem(ItemStack itemstack, World world, Player player) {
-		CompoundTag tag = itemstack.getData();
-		long time = tag.getLong("time");
-		long currentTime = Time.now();
-		if (
-			currentTime - time >= 5000
-				&& !player.isInWater()
-				&& !player.isPassenger()
-				&& !player.isInLava()
-		) {
-			tag.putLong("time", currentTime);
-			double yRot = player.yRot;
-			player.xd = Math.sin(MathHelper.toRadians((float) -yRot));
-			player.yd = 0.65f;
-			player.zd = Math.cos(MathHelper.toRadians((float) -yRot));
-			player.xo = player.x;
-			player.yo = player.y;
-			player.zo = player.z;
-			return itemstack;
-		}else {
-			long spam_timer = tag.getLong("spam");
-			if (currentTime - spam_timer >= 1250 && EnvironmentHelper.isClientWorld()) {
-				player.sendTranslatedChatMessage("item.goldenbat.tool.bat.golden.notready");
-				tag.putLong("spam", currentTime);
-			}
-			return itemstack;
-		}
 	}
 
 	@Override
@@ -100,6 +68,7 @@ public class ItemBat extends ItemToolSword {
 			}
 			stacksize = stacksize == 0 ? 1 : stacksize;
 			world.dropItem(blockX, blockY, blockZ, new ItemStack(toGive, stacksize, result.getRight()));
+			itemStack.damageItem(1, null);
 		}
 	}
 

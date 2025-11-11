@@ -6,7 +6,7 @@ import net.minecraft.core.util.helper.MathHelper;
 public class MobUtil {
     public static void knockback(
             Entity target, Entity attacker,
-            float knockBackStrength, float lift
+            double knockBackStrength, double lift
     ) {
         double distX = attacker.x - target.x;
         double distZ = attacker.z - target.z;
@@ -18,9 +18,9 @@ public class MobUtil {
         target.zd /= 2.0F; // velocity z
 
         // set velocity, apply knockback
-        target.xd = target.xd - (distX / (double) horizonalDistance * (double) knockBackStrength);
+        target.xd = target.xd - (distX / (double) horizonalDistance * knockBackStrength);
         target.yd = target.yd + lift;
-        target.zd = target.zd - (distZ / (double) horizonalDistance * (double) knockBackStrength);
+        target.zd = target.zd - (distZ / (double) horizonalDistance * knockBackStrength);
 
         // update velocity, so it works on the server
         target.xo = target.x;

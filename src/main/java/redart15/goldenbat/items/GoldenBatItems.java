@@ -14,6 +14,6 @@ public class GoldenBatItems {
 	public static Item GOLDEN_BAT;
 	public static void initializeItems(){
 		GOLDEN_BAT = new ItemBuilder(MOD_ID)
-			.build(new ItemGoldenBat("tool.bat.golden", MOD_ID + ":item/tool_bat_golden", GoldenBat.itemID++,ToolMaterial.gold)).withTags(new Tag[]{PREVENT_CREATIVE_MINING});
+			.build(new ItemGoldenBat("tool.bat.golden", MOD_ID + ":item/tool_bat_golden", GoldenBat.itemID++,ToolMaterial.gold, 4.6f)).withTags(new Tag[]{PREVENT_CREATIVE_MINING});
 	}
 }
