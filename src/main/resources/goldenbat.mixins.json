@@ -5,8 +5,9 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BlockLogicMixin",
-    "KnockBackMixin",
-    "LabyrinthLootMixin"
+    "LabyrinthLootMixin",
+    "NoDamageMixin",
+    "PlayerAccessor"
   ],
   "client": [
   ],
