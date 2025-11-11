@@ -23,6 +23,11 @@ public class ItemGoldenBat extends ItemBat {
 	}
 
 	@Override
+	public int getDamageVsEntity(Entity entity, ItemStack is) {
+		return 0;
+	}
+
+	@Override
 	public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
 		CompoundTag tag = itemstack.getData();
 		if (!tag.containsKey("time")) {

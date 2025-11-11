@@ -43,11 +43,6 @@ public class ItemBat extends ItemToolSword {
 	}
 
 	@Override
-	public int getDamageVsEntity(Entity entity, ItemStack is) {
-		return 0;
-	}
-
-	@Override
 	public void onUseByActivator(ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction) {
 		blockX += direction.getOffsetX();
 		blockY += direction.getOffsetY();
