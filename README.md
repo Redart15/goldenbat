@@ -9,11 +9,13 @@ Be mindfully when using it near glass or other easily breakable blocks.
 ## Features
 - Infinity durable golden bat rare found in Labyrinths.
 - Normally Golden bat has high knockback, sending your enemies on far voyage.
-- While Crouch to send your enemies up high.
+  - While Crouch to send your enemies up high.
 - Breaks glass, flowers, cacti, sugarcane and pumpkins very easily.
-- Flower leave dye behind.
-- Pumpkin leaves seeds behind.
-- The rest just get deleted.
+  - Flower leave dye behind.
+  - Pumpkin leaves seeds behind.
+  - The rest just get deleted.
+  - This works with Activator too.
+- Rightclicking the golden bat allows the player to dash a short distance (5 second cooldown).
 
 ## Demo
 [Small showcase](https://youtu.be/5OmfFL_nmpA)
