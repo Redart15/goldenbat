@@ -27,7 +27,7 @@ abstract public class NoDamageMixin {
 		if (entity instanceof Mob && entity.isAlive()) {
 			((PlayerAccessor)asThis).invokeAlertWolves((Mob) entity, true);
 		}
-		asThis.addStat((Stat) StatList.mobEncounterStats.get(EntityDispatcher.idForClass(entity.getClass())), 1);
+		asThis.addStat(StatList.mobEncounterStats.get(EntityDispatcher.idForClass(entity.getClass())), 1);
 	}
 
 }

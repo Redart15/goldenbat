@@ -9,8 +9,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashMap;
 import java.util.Map;
 
-// Helper Class for ItemGoldenBat
-// require to be loaded after Items creation.
+/// Helper Class for ItemGoldenBat
+/// require to be loaded after Items creation.
 
 public final class Smashables {
 	public static final Smashables instance = new Smashables();
