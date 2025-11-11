@@ -27,6 +27,7 @@ val loader_version: String by project
 
 val halplibe_version: String by project
 val mod_menu_version: String by project
+val btwaila_version: String by project
 
 group = mod_group
 base.archivesName.set(mod_name)
@@ -98,6 +99,7 @@ dependencies {
     modImplementation("turniplabs:halplibe:$halplibe_version")
 
     modImplementation("turniplabs:modmenu-bta:$mod_menu_version")
+	modImplementation("useless:btwaila:$btwaila_version")
 
     implementation("org.slf4j:slf4j-api:1.8.0-beta4")
     implementation("org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0")
