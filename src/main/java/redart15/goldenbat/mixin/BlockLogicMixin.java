@@ -24,7 +24,7 @@ import redart15.goldenbat.items.tools.ItemBat;
 import redart15.goldenbat.items.tools.Smashables;
 
 @Mixin(value = BlockLogic.class,remap = false)
-abstract public class BlockLogicMixin {
+public abstract class BlockLogicMixin {
 	@Shadow
 	@Final
 	@NotNull

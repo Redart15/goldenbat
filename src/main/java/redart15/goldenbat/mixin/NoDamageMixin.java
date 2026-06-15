@@ -1,6 +1,5 @@
 package redart15.goldenbat.mixin;
 
-import net.minecraft.core.achievement.stat.Stat;
 import net.minecraft.core.achievement.stat.StatList;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
@@ -14,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import redart15.goldenbat.items.tools.ItemGoldenBat;
 
 @Mixin(value = Player.class, remap = false)
-abstract public class NoDamageMixin {
+public abstract class NoDamageMixin {
 
 	@Inject(method = "attackTargetEntityWithCurrentItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;getDamageVsEntity(Lnet/minecraft/core/entity/Entity;)I", shift = At.Shift.AFTER))
 	private void doNoDamage(Entity entity, CallbackInfo ci) {
