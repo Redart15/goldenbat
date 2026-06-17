@@ -1,4 +1,4 @@
-package redart15.goldenbat.items.tools;
+package redart15.goldenbat.items;
 
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.Items;

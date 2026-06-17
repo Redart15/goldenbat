@@ -1,4 +1,4 @@
-package redart15.goldenbat.items.tools;
+package redart15.goldenbat.items;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
@@ -8,6 +8,7 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Time;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class ItemGoldenBat extends ItemBat {
@@ -23,12 +24,12 @@ public class ItemGoldenBat extends ItemBat {
 	}
 
 	@Override
-	public int getDamageVsEntity(Entity entity, ItemStack is) {
+	public int getDamageVsEntity(@NotNull ItemStack is, @NotNull Entity entity) {
 		return 0;
 	}
 
 	@Override
-	public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
+	public void inventoryTick(ItemStack itemstack, @NotNull World world, @NotNull Entity entity, int slotId, boolean flag) {
 		CompoundTag tag = itemstack.getData();
 		if (!tag.containsKey("time")) {
 			tag.putLong("time", System.currentTimeMillis());
@@ -39,7 +40,7 @@ public class ItemGoldenBat extends ItemBat {
 	}
 
 	@Override
-	public ItemStack onUseItem(ItemStack itemstack, World world, Player player) {
+	public ItemStack onUse(ItemStack itemstack, @NotNull World world, @NotNull Player player) {
 		CompoundTag tag = itemstack.getData();
 		long time = tag.getLong("time");
 		long currentTime = Time.now();
@@ -59,9 +60,9 @@ public class ItemGoldenBat extends ItemBat {
 			player.zo = player.z;
 			return itemstack;
 		}else {
-			long spam_timer = tag.getLong("spam");
-			if (currentTime - spam_timer >= 1250 && EnvironmentHelper.isClientWorld()) {
-				player.sendTranslatedChatMessage("item.goldenbat.tool.bat.golden.notready");
+			long spamTimer = tag.getLong("spam");
+			if (currentTime - spamTimer >= 1250) {
+				player.sendMessageTranslated("item.goldenbat.tool.bat.golden.notready");
 				tag.putLong("spam", currentTime);
 			}
 			return itemstack;

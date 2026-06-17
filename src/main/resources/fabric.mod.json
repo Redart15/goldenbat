@@ -19,16 +19,16 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-			"redart15.goldenbat.GoldenBat"
+      "redart15.goldenbat.GoldenBatMod"
     ],
 		"beforeGameStart": [
-			"redart15.goldenbat.GoldenBat"
+          "redart15.goldenbat.GoldenBatMod"
 		],
 		"afterGameStart": [
-			"redart15.goldenbat.GoldenBat"
+          "redart15.goldenbat.GoldenBatMod"
 		],
 		"recipesReady": [
-			"redart15.goldenbat.GoldenBat"
+          "redart15.goldenbat.GoldenBatMod"
 		],
 		"initModels": [
 			"redart15.goldenbat.GoldenBatModels"

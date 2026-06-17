@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import redart15.goldenbat.items.GoldenBatItems;
+import redart15.goldenbat.GoldenBatMod;
 
 import java.util.Random;
 @Mixin(value = WorldFeatureLabyrinth.class, remap = false)
@@ -19,6 +19,6 @@ public class LabyrinthLootMixin {
 
 	@Inject(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/WeightedRandomBag;addEntry(Ljava/lang/Object;D)V", ordinal = 0))
 	private void addLoot(final World world, final Random random, final int x, final int y, final int z, final CallbackInfoReturnable<Boolean> cir){
-		this.chestLoot.addEntry(new WeightedRandomLootObject(GoldenBatItems.GOLDEN_BAT.getDefaultStack(), 1), 8.0F);
+		this.chestLoot.addEntry(new WeightedRandomLootObject(GoldenBatMod.GOLDEN_BAT.getDefaultStack(), 1), 8.0F);
 	}
 }

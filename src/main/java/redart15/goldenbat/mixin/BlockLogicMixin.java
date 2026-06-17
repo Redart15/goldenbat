@@ -1,6 +1,9 @@
 package redart15.goldenbat.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.entity.TileEntity;
@@ -10,6 +13,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,10 +24,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import redart15.goldenbat.items.tools.ItemBat;
-import redart15.goldenbat.items.tools.Smashables;
+import redart15.goldenbat.items.ItemBat;
+import redart15.goldenbat.items.Smashables;
 
-@Mixin(value = BlockLogic.class,remap = false)
+@Mixin(value = BlockLogic.class, remap = false)
 public abstract class BlockLogicMixin {
 	@Shadow
 	@Final
@@ -33,31 +37,35 @@ public abstract class BlockLogicMixin {
 	@Shadow
 	public abstract ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity);
 
-	@Inject(
-		method = "harvestBlock(Lnet/minecraft/core/world/World;Lnet/minecraft/core/entity/player/Player;IIIILnet/minecraft/core/block/entity/TileEntity;)V",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/BlockLogic;dropBlockWithCause(Lnet/minecraft/core/world/World;Lnet/minecraft/core/enums/EnumDropCause;IIIILnet/minecraft/core/block/entity/TileEntity;Lnet/minecraft/core/entity/player/Player;)V"),
-		locals = LocalCapture.CAPTURE_FAILHARD,
-		cancellable = true
+	@WrapOperation(
+		method = "onHarvest",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/BlockLogic;dropWithCause(Lnet/minecraft/core/world/World;Lnet/minecraft/core/enums/EnumDropCause;Lnet/minecraft/core/world/pos/TilePosc;ILnet/minecraft/core/block/entity/TileEntity;Lnet/minecraft/core/entity/player/Player;)V")
 	)
-	private void batHarvest(World world, Player player, int x, int y, int z, int meta, TileEntity tileEntity, final CallbackInfo ci, @Local Item heldItem) {
+	private void batHarvest(
+		BlockLogic instance, World world,
+		EnumDropCause dropCause, TilePosc tilePosc,
+		int data, TileEntity tileEntity,
+		Player player, Operation<Void> original
+	) {
 		int id = this.block.id();
-		if (!(heldItem instanceof ItemBat) || !Smashables.instance.isSmashable(id)) {
+		ItemStack itemStack = player.getHeldItem();
+		if (itemStack == null || !(itemStack.getItem() instanceof ItemBat) || !Smashables.instance.isSmashable(id)) {
+			original.call(instance, world, dropCause, tilePosc, data, tileEntity, player);
 			return;
 		}
-		ItemStack[] dropItems = this.getBreakResult(world,EnumDropCause.PROPER_TOOL,meta,tileEntity);
-		if(dropItems == null) return;
+		ItemStack[] dropItems = this.getBreakResult(world, EnumDropCause.PROPER_TOOL, data, tileEntity);
+		if (dropItems == null) return;
 		Pair<NamespaceID, Integer> result = Smashables.instance.getEntry(id);
-		if(result.getLeft() == null) {
-			ci.cancel();
+		if (result.getLeft() == null) {
+			original.call(instance, world, dropCause, tilePosc, data, tileEntity, player);
 			return;
 		}
 		Item toGive = Item.itemsMap.get(result.getLeft());
 		int stacksize = 0;
-		for(ItemStack dropItem : dropItems){
+		for (ItemStack dropItem : dropItems) {
 			stacksize += dropItem.stackSize;
 		}
 		stacksize = stacksize == 0 ? 1 : stacksize;
-		world.dropItem(x,y,z,new ItemStack(toGive, stacksize, result.getRight()));
-		ci.cancel();
+		world.dropItem(tilePosc, new ItemStack(toGive, stacksize, result.getRight()));
 	}
 }

@@ -1,9 +1,11 @@
-package redart15.goldenbat.items.tools;
+package redart15.goldenbat.items;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.helper.MathHelper;
 
 public class MobUtil {
+	private MobUtil(){}
+
     public static void knockback(
             Entity target, Entity attacker,
             double knockBackStrength, double lift
