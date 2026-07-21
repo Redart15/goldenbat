@@ -2,8 +2,7 @@ package redart15.goldenbat.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import it.unimi.dsi.fastutil.objects.ObjectIntPair;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.entity.TileEntity;
@@ -14,16 +13,12 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
-import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import redart15.goldenbat.items.ItemBat;
 import redart15.goldenbat.items.Smashables;
 
@@ -55,17 +50,17 @@ public abstract class BlockLogicMixin {
 		}
 		ItemStack[] dropItems = this.getBreakResult(world, EnumDropCause.PROPER_TOOL, data, tileEntity);
 		if (dropItems == null) return;
-		Pair<NamespaceID, Integer> result = Smashables.instance.getEntry(id);
-		if (result.getLeft() == null) {
+		ObjectIntPair<NamespaceID> result = Smashables.instance.getEntry(id);
+		if (result.left() == null) {
 			original.call(instance, world, dropCause, tilePosc, data, tileEntity, player);
 			return;
 		}
-		Item toGive = Item.itemsMap.get(result.getLeft());
+		Item toGive = Item.itemsMap.get(result.left());
 		int stacksize = 0;
 		for (ItemStack dropItem : dropItems) {
 			stacksize += dropItem.stackSize;
 		}
 		stacksize = stacksize == 0 ? 1 : stacksize;
-		world.dropItem(tilePosc, new ItemStack(toGive, stacksize, result.getRight()));
+		world.dropItem(tilePosc, new ItemStack(toGive, stacksize, result.rightInt()));
 	}
 }

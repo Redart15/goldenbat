@@ -18,21 +18,8 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "redart15.goldenbat.GoldenBatMod"
-    ],
-		"beforeGameStart": [
-          "redart15.goldenbat.GoldenBatMod"
-		],
-		"afterGameStart": [
-          "redart15.goldenbat.GoldenBatMod"
-		],
-		"recipesReady": [
-          "redart15.goldenbat.GoldenBatMod"
-		],
-		"initModels": [
-			"redart15.goldenbat.GoldenBatModels"
-		]
+    "main": 		["redart15.goldenbat.GoldenBatMod"],
+		"client": 	["redart15.goldenbat.GoldenBatClient"]
 	},
   "mixins": [
       "goldenbat.mixins.json"

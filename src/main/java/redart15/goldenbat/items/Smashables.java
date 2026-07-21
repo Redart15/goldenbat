@@ -1,10 +1,10 @@
 package redart15.goldenbat.items;
 
+import it.unimi.dsi.fastutil.objects.ObjectIntPair;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DyeColor;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.Map;
 
 public final class Smashables {
 	public static final Smashables instance = new Smashables();
-	private final Map<Integer, Pair<NamespaceID, Integer>> smashables = new HashMap<>();
+	private final Map<Integer, ObjectIntPair<NamespaceID>> smashables = new HashMap<>();
 
 
 	private Smashables() {
@@ -43,18 +43,18 @@ public final class Smashables {
 	}
 
 	public void addEntry(int blockID) {
-		this.smashables.put(blockID, Pair.of(null, 0));
+		this.smashables.put(blockID, ObjectIntPair.of(null, 0));
 	}
 
 	public void addEntry(int blockID, NamespaceID itemID) {
-		this.smashables.put(blockID, Pair.of(itemID, 0));
+		this.smashables.put(blockID, ObjectIntPair.of(itemID, 0));
 	}
 
 	public void addEntry(int blockID, NamespaceID itemID, int metadata) {
-		this.smashables.put(blockID, Pair.of(itemID, metadata));
+		this.smashables.put(blockID, ObjectIntPair.of(itemID, metadata));
 	}
 
-	public Pair<NamespaceID, Integer> getEntry(int blockID){
+	public ObjectIntPair<NamespaceID> getEntry(int blockID){
 		return this.smashables.get(blockID);
 	}
 

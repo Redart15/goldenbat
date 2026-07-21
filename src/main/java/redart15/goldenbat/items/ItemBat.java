@@ -1,9 +1,9 @@
 package redart15.goldenbat.items;
 
+import it.unimi.dsi.fastutil.objects.ObjectIntPair;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntityActivator;
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumBlockSoundEffectType;
@@ -17,7 +17,6 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
-import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
@@ -63,15 +62,15 @@ public class ItemBat extends ItemToolSword {
 			world.playBlockSoundEffect(null, pos.x(), pos.y(), pos.z(), block, EnumBlockSoundEffectType.MINE);
 			ItemStack[] dropItems = block.getBreakResult(world, EnumDropCause.PROPER_TOOL, metadata, null);
 			if (dropItems == null) return;
-			Pair<NamespaceID, Integer> result = Smashables.instance.getEntry(block.id());
-			if (result.getLeft() == null) return;
-			Item toGive = Item.itemsMap.get(result.getLeft());
+			ObjectIntPair<NamespaceID> result = Smashables.instance.getEntry(block.id());
+			if (result.left() == null) return;
+			Item toGive = Item.itemsMap.get(result.left());
 			int stacksize = 0;
 			for (ItemStack dropItem : dropItems) {
 				stacksize += dropItem.stackSize;
 			}
 			stacksize = stacksize == 0 ? 1 : stacksize;
-			world.dropItem(pos, new ItemStack(toGive, stacksize, result.getRight()));
+			world.dropItem(pos, new ItemStack(toGive, stacksize, result.rightInt()));
 			itemStack.damageItem(1, null);
 		}
 	}
