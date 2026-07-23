@@ -1,7 +1,3 @@
-item.goldenbat.tool.bat.golden.name = Golden Bat
-item.goldenbat.tool.bat.golden.desc = A knockbackmonster of a weapon!
-item.goldenbat.tool.bat.golden.notready= Quick break before the next dash.
-
-
-goldenbat.tool.bat.golden.name = Golden Bat
-goldenbat.tool.bat.golden.desc = A knockbackmonster of a weapon!
+item.goldenbat.tool.bat.golden.name =Golden Bat
+item.goldenbat.tool.bat.golden.desc =A knockbackmonster of a weapon!
+item.goldenbat.tool.bat.golden.notready=Quick break before the next dash.
